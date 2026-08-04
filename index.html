@@ -13,13 +13,14 @@
     
     <style>
         :root {
-            --bg-dark: #090a0f;
-            --bg-card: rgba(18, 20, 29, 0.85);
+            --bg-dark: #07080b;
+            --bg-card: rgba(15, 17, 24, 0.88);
             --gold-accent: #c5a059;
-            --gold-hover: #e5b869;
+            --gold-light: #e5b869;
             --text-main: #f0f0f0;
-            --text-muted: #a0a5b5;
+            --text-muted: #9aa0b0;
             --border-color: rgba(197, 160, 89, 0.25);
+            --telegram-blue: #229ED9;
         }
 
         * {
@@ -34,56 +35,126 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
         }
 
-        /* HEADER / NAV */
+        /* EFEITO OLHAR DO PREDADOR */
+        .predator-eyes-container {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 600px;
+            height: 200px;
+            pointer-events: none;
+            z-index: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            opacity: 0.15;
+            transition: opacity 0.3s ease, transform 0.1s ease-out;
+        }
+
+        .eye {
+            width: 90px;
+            height: 18px;
+            background: radial-gradient(circle, #ffffff 15%, var(--gold-accent) 45%, transparent 75%);
+            border-radius: 50% / 80% 80% 20% 20%;
+            box-shadow: 0 0 35px var(--gold-accent), 0 0 10px #fff;
+            position: relative;
+            transform: scaleY(0.2);
+            transition: transform 0.2s ease, box-shadow 0.3s;
+        }
+
+        .eye::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 14px;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        /* HEADER */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 8%;
+            padding: 15px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(9, 10, 15, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(7, 8, 11, 0.92);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
         }
 
-        .logo-container {
-            text-align: center;
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-svg {
+            width: 48px;
+            height: auto;
+            filter: drop-shadow(0 0 6px rgba(197, 160, 89, 0.4));
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
         }
 
         .logo-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 800;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: #ffffff;
-            text-transform: uppercase;
+            line-height: 1;
         }
 
-        .logo-subtitle {
-            font-size: 0.65rem;
-            letter-spacing: 4px;
+        .logo-sub {
+            font-size: 0.55rem;
+            letter-spacing: 3px;
             color: var(--gold-accent);
             text-transform: uppercase;
             font-weight: 600;
+            margin-top: 4px;
         }
 
-        .nav-links a {
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn-nav {
+            background: transparent;
+            border: 1px solid var(--border-color);
             color: var(--text-main);
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
+            padding: 8px 18px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .nav-links a:hover {
+        .btn-nav:hover {
+            border-color: var(--gold-accent);
             color: var(--gold-accent);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
         }
 
         /* HERO SECTION */
@@ -95,22 +166,24 @@
             justify-content: center;
             text-align: center;
             padding: 140px 20px 80px;
-            background: linear-gradient(180deg, rgba(9,10,15,0.7) 0%, rgba(9,10,15,0.95) 100%), 
-                        url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            background: radial-gradient(circle at center, rgba(15, 17, 24, 0.5) 0%, rgba(7, 8, 11, 0.95) 100%);
+            z-index: 1;
         }
 
-        .hero-content {
-            max-width: 900px;
-            z-index: 1;
+        .hero-logo-center {
+            width: 140px;
+            height: auto;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.3));
         }
 
         .hero-title {
             font-family: 'Cinzel', serif;
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             letter-spacing: 2px;
             color: #ffffff;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-transform: uppercase;
             line-height: 1.2;
         }
@@ -120,215 +193,285 @@
         }
 
         .hero-subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-muted);
             margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* BOTÃO DE CTA PRINCIPAL (TELEGRAM) */
-        .btn-gold {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--gold-accent) 0%, #997433 100%);
-            color: #000000;
-            padding: 16px 42px;
-            font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.3);
-            transition: all 0.3s ease;
-            border: 1px solid var(--gold-accent);
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(197, 160, 89, 0.5);
-            background: linear-gradient(135deg, var(--gold-hover) 0%, var(--gold-accent) 100%);
-        }
-
-        /* PILARES */
-        .pillars-section {
-            padding: 80px 8%;
-            background-color: #0b0d14;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .section-header {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
-            color: var(--gold-accent);
-            letter-spacing: 3px;
-            margin-bottom: 50px;
-            text-transform: uppercase;
-        }
-
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .pillar-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 40px 30px;
-            border-radius: 6px;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .pillar-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--gold-accent);
-        }
-
-        .pillar-card i {
-            font-size: 2.5rem;
-            color: var(--gold-accent);
-            margin-bottom: 20px;
-        }
-
-        .pillar-card h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: #ffffff;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .pillar-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* COMUNIDADE TELEGRAM BANNER */
-        .community-section {
-            padding: 100px 8%;
-            background: linear-gradient(180deg, #0b0d14 0%, #06070a 100%);
-            text-align: center;
-            position: relative;
-        }
-
-        .community-box {
-            background: linear-gradient(135deg, rgba(20, 24, 36, 0.9) 0%, rgba(12, 14, 22, 0.95) 100%);
-            border: 1px solid var(--gold-accent);
-            border-radius: 12px;
-            padding: 60px 40px;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .community-box i.fa-telegram {
-            font-size: 4rem;
-            color: #229ED9;
-            margin-bottom: 20px;
-        }
-
-        .community-box h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            color: #ffffff;
-            margin-bottom: 15px;
-        }
-
-        .community-box p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            margin-bottom: 35px;
             max-width: 650px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .btn-telegram {
+        .btn-telegram-highlight {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background-color: #229ED9;
+            justify-content: center;
+            gap: 14px;
+            background: linear-gradient(135deg, #229ED9 0%, #156288 100%);
             color: #ffffff;
-            padding: 16px 40px;
-            font-size: 1rem;
+            padding: 18px 45px;
+            font-size: 1.05rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             text-decoration: none;
-            border-radius: 4px;
-            transition: all 0.3s;
+            border-radius: 6px;
+            border: 1px solid #3bb3ed;
+            box-shadow: 0 10px 30px rgba(34, 158, 217, 0.35);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .btn-telegram:hover {
-            background-color: #1a88bd;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(34, 158, 217, 0.4);
+        .btn-telegram-highlight:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(34, 158, 217, 0.5);
+            background: linear-gradient(135deg, #2db0f0 0%, #1c7dae 100%);
+        }
+
+        .btn-telegram-highlight i { font-size: 1.6rem; }
+
+        /* PILARES */
+        .pillars-section {
+            position: relative;
+            padding: 80px 8%;
+            background-color: rgba(10, 11, 16, 0.9);
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            z-index: 1;
+        }
+
+        .section-header {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold-accent);
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 35px 25px;
+            border-radius: 6px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold-accent);
+        }
+
+        .pillar-card i {
+            font-size: 2.2rem;
+            color: var(--gold-accent);
+            margin-bottom: 18px;
+        }
+
+        .pillar-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .pillar-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* MODAIS */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: #11131c;
+            border: 1px solid var(--gold-accent);
+            border-radius: 8px;
+            padding: 35px;
+            width: 90%;
+            max-width: 480px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover { color: #fff; }
+
+        .modal-tag {
+            display: inline-block;
+            background: rgba(197, 160, 89, 0.15);
+            color: var(--gold-accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background: #090a0f;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .form-input:focus { border-color: var(--gold-accent); }
+
+        .btn-modal-submit {
+            background: linear-gradient(135deg, var(--gold-accent) 0%, #8c6827 100%);
+            color: #000;
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
         }
 
         /* FOOTER */
         footer {
-            padding: 40px 8%;
-            background-color: #050608;
+            position: relative;
+            padding: 35px 8%;
+            background-color: #040507;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            z-index: 1;
         }
 
-        .footer-logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            color: #ffffff;
-            margin-bottom: 5px;
-            letter-spacing: 2px;
-        }
-
-        /* RESPONSIVIDADE MOBILE */
-        @media (max-width: 768px) {
-            header { padding: 15px 5%; }
-            .nav-links { display: none; }
-            .hero-title { font-size: 2rem; }
-            .hero-subtitle { font-size: 0.95rem; }
-            .community-box { padding: 40px 20px; }
+        @media (max-width: 820px) {
+            header { padding: 12px 4%; }
+            .logo-title { font-size: 1.1rem; }
+            .nav-buttons { gap: 8px; }
+            .btn-nav { padding: 6px 10px; font-size: 0.7rem; }
+            .hero-title { font-size: 1.9rem; }
+            .hero-subtitle { font-size: 0.88rem; }
+            .btn-telegram-highlight { width: 100%; padding: 16px 20px; font-size: 0.9rem; }
+            .predator-eyes-container { width: 90%; }
+            .eye { width: 60px; height: 12px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- EFEITO OLHAR DO PREDADOR -->
+    <div class="predator-eyes-container" id="predatorEyes">
+        <div class="eye"></div>
+        <div class="eye"></div>
+    </div>
+
     <!-- CABEÇALHO -->
     <header>
-        <div class="logo-container">
-            <div class="logo-title">MR. TRADERS</div>
-            <div class="logo-subtitle">Disciplina • Foco • Resultados</div>
+        <a href="#" class="logo-box">
+            <svg class="logo-svg" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M90 10 C100 40 120 70 180 85 C140 85 110 80 90 95 C85 75 75 55 90 10 Z" fill="#ffffff"/>
+                <path d="M10 85 L60 85 L75 50 L90 95 L105 30 L120 85 L180 85" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="logo-text">
+                <span class="logo-title">MR. TRADERS</span>
+                <span class="logo-sub">DISCIPLINA • FOCO • RESULTADOS</span>
+            </div>
+        </a>
+
+        <div class="nav-buttons">
+            <button class="btn-nav" onclick="openModal('modalEbook')">Ebook</button>
+            <button class="btn-nav" onclick="openModal('modalMentoria')">Mentoria</button>
         </div>
-        <nav class="nav-links">
-            <a href="#pilares">Métodos</a>
-            <a href="#comunidade">Comunidade VIP</a>
-            <a href="#telegram">Telegram</a>
-        </nav>
     </header>
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <div class="hero-content">
+        <div style="z-index: 2;">
+            <svg class="hero-logo-center" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M90 10 C100 40 120 70 180 85 C140 85 110 80 90 95 C85 75 75 55 90 10 Z" fill="#ffffff"/>
+                <path d="M10 85 L60 85 L75 50 L90 95 L105 30 L120 85 L180 85" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
             <h1 class="hero-title">Viva a vida que os <span>Resultados</span> constroem</h1>
             <p class="hero-subtitle">Domine o mercado financeiro com alta performance, estratégia de precisão e a mentalidade dos maiores predadores do mercado.</p>
             
-            <!-- COLOQUE SEU LINK DO TELEGRAM ABAIXO -->
-            <a href="https://t.me/+IZt7IM-GTBEyZGI5" target="_blank" class="btn-gold">
-                <i class="fa-brands fa-telegram"></i> Junte-se à Elite
+            <a href="https://t.me/+IZt7IM-GTBEyZGI5" target="_blank" class="btn-telegram-highlight">
+                <i class="fa-brands fa-telegram"></i> Entrar na Comunidade Telegram
             </a>
         </div>
     </section>
 
-    <!-- TRÊS PILARES DA MARCA -->
-    <section class="pillars-section" id="pilares">
-        <h2 class="section-header">Nossos Pilares de Sucesso</h2>
+    <!-- PILARES DA MARCA -->
+    <section class="pillars-section">
+        <h2 class="section-header">Nossos Pilares</h2>
         <div class="pillars-grid">
             <div class="pillar-card">
                 <i class="fa-solid fa-chess-knight"></i>
@@ -338,36 +481,105 @@
             <div class="pillar-card">
                 <i class="fa-solid fa-crosshairs"></i>
                 <h3>Foco</h3>
-                <p>Análise cirúrgica de contexto de mercado. Identificação de assimetrias de alta probabilidade.</p>
+                <p>Análise cirúrgica do mercado. Identificação de assimetrias de alta probabilidade.</p>
             </div>
             <div class="pillar-card">
                 <i class="fa-solid fa-chart-line"></i>
                 <h3>Resultados</h3>
-                <p>Consistência financeira comprovada no longo prazo através da gestão de capital institucional.</p>
+                <p>Consistência financeira comprovada através da gestão de capital profissional e institucional.</p>
             </div>
         </div>
     </section>
 
-    <!-- COMUNIDADE TELEGRAM -->
-    <section class="community-section" id="comunidade">
-        <div class="community-box" id="telegram">
-            <i class="fa-brands fa-telegram"></i>
-            <h2>Comunidade Gratuita no Telegram</h2>
-            <p>Receba análises diárias de mercado, visões estratégicas e acompanhe nossas operações em tempo real.</p>
+    <!-- MODAL 1: EBOOK -->
+    <div class="modal-overlay" id="modalEbook">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('modalEbook')">&times;</button>
+            <span class="modal-tag">Em Desenvolvimento</span>
+            <h3 class="modal-title">E-book MR. TRADERS</h3>
+            <p class="modal-desc">Nosso e-book oficial com as melhores estratégias operacionais está em fase final de elaboração. Deixe seu e-mail para receber gratuitamente assim que for lançado!</p>
             
-            <!-- COLOQUE SEU LINK DO TELEGRAM ABAIXO -->
-            <a href="https://t.me/+IZt7IM-GTBEyZGI5" target="_blank" class="btn-telegram">
-                Acessar Grupo VIP Telegram
-            </a>
+            <form action="https://formspree.io/f/meajjwea" method="POST">
+                <input type="hidden" name="Origem" value="Solicitação de E-book">
+                <div class="form-group">
+                    <label>Seu E-mail</label>
+                    <input type="email" name="email" class="form-input" placeholder="seuemail@exemplo.com" required>
+                </div>
+                <button type="submit" class="btn-modal-submit">Avisar-me no Lançamento</button>
+            </form>
         </div>
-    </section>
+    </div>
+
+    <!-- MODAL 2: MENTORIA -->
+    <div class="modal-overlay" id="modalMentoria">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('modalMentoria')">&times;</button>
+            <span class="modal-tag" style="background: rgba(231, 76, 60, 0.15); color: #e74c3c; border-color: rgba(231, 76, 60, 0.3);">Vagas Encerradas</span>
+            <h3 class="modal-title">Lista de Espera - Mentoria</h3>
+            <p class="modal-desc">As vagas para a turma atual estão esgotadas. Preencha seus dados abaixo para ser priorizado na abertura da próxima turma exclusiva.</p>
+            
+            <form action="https://formspree.io/f/meajjwea" method="POST">
+                <input type="hidden" name="Origem" value="Lista de Espera Mentoria">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" name="nome" class="form-input" placeholder="Seu nome completo" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>E-mail Principal</label>
+                    <input type="email" name="email" class="form-input" placeholder="seuemail@exemplo.com" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp / Contato (Com DDI + DDD)</label>
+                    <input type="tel" id="whatsappInput" name="whatsapp" class="form-input" placeholder="+55 (11) 99999-9999" required minlength="10">
+                </div>
+                <button type="submit" class="btn-modal-submit">Entrar para a Lista de Espera</button>
+            </form>
+        </div>
+    </div>
 
     <!-- RODAPÉ -->
     <footer>
-        <div class="footer-logo">MR. TRADERS</div>
-        <p>Disciplina • Foco • Resultados &copy; 2026. Todos os direitos reservados.</p>
-        <p style="margin-top: 10px; font-size: 0.75rem; color: #555;">Aviso Legal: Operar no mercado financeiro envolve riscos. Resultados passados não garantem rentabilidade futura.</p>
+        <p><strong>MR. TRADERS</strong> — Disciplina • Foco • Resultados &copy; 2026.</p>
     </footer>
 
+    <!-- JAVASCRIPT -->
+    <script>
+        // Efeito Olhar do Predador
+        window.addEventListener('scroll', () => {
+            const eyesContainer = document.getElementById('predatorEyes');
+            const eyes = document.querySelectorAll('.eye');
+            const scrollPos = window.scrollY;
+            
+            let scaleY = Math.min(1, 0.2 + (scrollPos / 400));
+            let opacity = Math.min(0.6, 0.15 + (scrollPos / 600));
+            
+            eyesContainer.style.opacity = opacity;
+            
+            eyes.forEach(eye => {
+                eye.style.transform = `scaleY(${scaleY})`;
+            });
+        });
+
+        // Formatação do Campo WhatsApp (+DDI DDD Número)
+        const phoneInput = document.getElementById('whatsappInput');
+        phoneInput.addEventListener('input', (e) => {
+            let x = e.target.value.replace(/\D/g, '');
+            if (!x.startsWith('55') && x.length > 2) {
+                x = '55' + x;
+            }
+            if (x.length > 2) {
+                e.target.value = '+' + x.substring(0,2) + ' (' + x.substring(2,4) + ') ' + x.substring(4,9) + (x.length > 9 ? '-' + x.substring(9,13) : '');
+            }
+        });
+
+        // Modais
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+    </script>
 </body>
 </html>
