@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- intl-tel-input CSS (Validação Internacional de Telefone com Bandeiras) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css">
     
     <style>
         :root {
@@ -387,6 +389,17 @@
 
         .form-input:focus { border-color: var(--gold-accent); }
 
+        /* AJUSTES PARA O SELETOR DE TELEFONE INTERNACIONAL */
+        .iti { width: 100%; }
+        .iti__country-list {
+            background-color: #11131c;
+            border: 1px solid var(--gold-accent);
+            color: #fff;
+        }
+        .iti__country:hover, .iti__country.iti__highlight {
+            background-color: rgba(197, 160, 89, 0.2);
+        }
+
         .btn-modal-submit {
             background: linear-gradient(135deg, var(--gold-accent) 0%, #8c6827 100%);
             color: #000;
@@ -398,6 +411,7 @@
             border: none;
             cursor: pointer;
             width: 100%;
+            margin-top: 10px;
         }
 
         /* FOOTER */
@@ -499,7 +513,7 @@
             <h3 class="modal-title">E-book MR. TRADERS</h3>
             <p class="modal-desc">Nosso e-book oficial com as melhores estratégias operacionais está em fase final de elaboração. Deixe seu e-mail para receber gratuitamente assim que for lançado!</p>
             
-            <form action="https://formspree.io/f/meajjwea" method="POST">
+            <form id="formEbook" onsubmit="submitFormAjax(event, 'modalEbook')">
                 <input type="hidden" name="Origem" value="Solicitação de E-book">
                 <div class="form-group">
                     <label>Seu E-mail</label>
@@ -518,7 +532,7 @@
             <h3 class="modal-title">Lista de Espera - Mentoria</h3>
             <p class="modal-desc">As vagas para a turma atual estão esgotadas. Preencha seus dados abaixo para ser priorizado na abertura da próxima turma exclusiva.</p>
             
-            <form action="https://formspree.io/f/meajjwea" method="POST">
+            <form id="formMentoria" onsubmit="submitFormAjax(event, 'modalMentoria')">
                 <input type="hidden" name="Origem" value="Lista de Espera Mentoria">
                 <div class="form-group">
                     <label>Nome Completo</label>
@@ -529,8 +543,8 @@
                     <input type="email" name="email" class="form-input" placeholder="seuemail@exemplo.com" required>
                 </div>
                 <div class="form-group">
-                    <label>WhatsApp / Contato (Com DDI + DDD)</label>
-                    <input type="tel" id="whatsappInput" name="whatsapp" class="form-input" placeholder="+55 (11) 99999-9999" required minlength="10">
+                    <label>WhatsApp / Contato Internacional</label>
+                    <input type="tel" id="whatsappInput" name="whatsapp" class="form-input" required>
                 </div>
                 <button type="submit" class="btn-modal-submit">Entrar para a Lista de Espera</button>
             </form>
@@ -542,7 +556,8 @@
         <p><strong>MR. TRADERS</strong> — Disciplina • Foco • Resultados &copy; 2026.</p>
     </footer>
 
-    <!-- JAVASCRIPT -->
+    <!-- JS de Validação Internacional de Telefone -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
     <script>
         // Efeito Olhar do Predador
         window.addEventListener('scroll', () => {
@@ -560,25 +575,71 @@
             });
         });
 
-        // Formatação do Campo WhatsApp (+DDI DDD Número)
-        const phoneInput = document.getElementById('whatsappInput');
-        phoneInput.addEventListener('input', (e) => {
-            let x = e.target.value.replace(/\D/g, '');
-            if (!x.startsWith('55') && x.length > 2) {
-                x = '55' + x;
-            }
-            if (x.length > 2) {
-                e.target.value = '+' + x.substring(0,2) + ' (' + x.substring(2,4) + ') ' + x.substring(4,9) + (x.length > 9 ? '-' + x.substring(9,13) : '');
-            }
+        // Inicialização do Campo de Telefone Internacional com Bandeiras
+        const phoneInputField = document.querySelector("#whatsappInput");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            geoIpLookup: function(success, failure) {
+                fetch("https://ipapi.co/json/")
+                    .then(res => res.json())
+                    .then(data => success(data.country_code))
+                    .catch(() => success("BR"));
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
+            preferredCountries: ["br", "pt", "us", "es", "gb"]
         });
 
-        // Modais
+        // Funções para Controle dos Modais
         function openModal(id) {
             document.getElementById(id).classList.add('active');
         }
 
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
+        }
+
+        // Envio Sem Redirecionamento (AJAX/Fetch API)
+        function submitFormAjax(event, modalId) {
+            event.preventDefault();
+            const form = event.target;
+            
+            // Caso seja o formulário de mentoria, valida o telefone global
+            if (modalId === 'modalMentoria') {
+                if (!phoneInput.isValidNumber()) {
+                    alert("Por favor, insira um número de telefone/WhatsApp válido para o país selecionado.");
+                    return;
+                }
+                // Ajusta o valor enviado com o número internacional completo (+DDI +Número)
+                document.querySelector("#whatsappInput").value = phoneInput.getNumber();
+            }
+
+            const data = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            
+            submitBtn.innerText = "Enviando...";
+            submitBtn.disabled = true;
+
+            fetch("https://formspree.io/f/meajjwea", {
+                method: "POST",
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert("Obrigado! Dados enviados com sucesso.");
+                    form.reset();
+                    closeModal(modalId);
+                } else {
+                    alert("Ocorreu um problema ao enviar. Tente novamente.");
+                }
+            }).catch(error => {
+                alert("Erro de conexão ao enviar. Tente novamente.");
+            }).finally(() => {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            });
         }
     </script>
 </body>
