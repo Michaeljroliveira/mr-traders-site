@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MR TRADERS : TENHA CLAREZA NAS SUAS OPERAÇÕES</title>
+    <title>MR TRADERS : SIMPLICIDADE QUE GERA RESULTADO</title>
     
     <!-- Content Security Policy Otimizada -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://formspree.io;">
@@ -11,19 +11,19 @@
     <!-- Fontes e Ícones -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         :root {
-            --bg-primary: #04060a;
-            --bg-secondary: rgba(10, 14, 23, 0.85);
+            --bg-primary: #020408;
+            --bg-card: rgba(8, 12, 22, 0.65);
             --neon-blue: #00f0ff;
             --neon-pink: #ff2a5f;
             --discord-color: #5865F2;
             --text-main: #ffffff;
-            --text-muted: #a0a5b5;
-            --border-color: rgba(0, 240, 255, 0.25);
+            --text-muted: #d0d5e5;
+            --border-color: rgba(0, 240, 255, 0.4);
         }
 
         * {
@@ -31,6 +31,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            user-select: none;
         }
 
         body {
@@ -39,22 +40,36 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
         }
 
-        /* Fundo Integrado: Logo em Destaque + Tubarão Real no Fundo */
-        .bg-watermark {
+        /* FUNDO DE TUBARÃO REAL EM ALTA VISIBILIDADE */
+        .bg-ocean {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             background: 
-                linear-gradient(180deg, rgba(4, 6, 10, 0.82) 0%, rgba(4, 6, 10, 0.92) 100%),
-                url('mr trades.jpg') center/contain no-repeat,
+                linear-gradient(180deg, rgba(2, 4, 8, 0.4) 0%, rgba(2, 4, 8, 0.75) 100%),
                 url('https://images.unsplash.com/photo-1560275619-4662e36fa65c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            opacity: 0.35;
-            z-index: -1;
+            z-index: -2;
             pointer-events: none;
+        }
+
+        /* LOGO EMBUTIDO AO FUNDO DA HERO SECTION */
+        .bg-logo-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 650px;
+            height: auto;
+            opacity: 0.25;
+            z-index: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.6));
         }
 
         header {
@@ -62,7 +77,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 8%;
-            background: rgba(4, 6, 10, 0.9);
+            background: rgba(2, 4, 8, 0.75);
             backdrop-filter: blur(12px);
             position: fixed;
             width: 100%;
@@ -78,17 +93,17 @@
         }
 
         .logo-img-header {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             border: 2px solid var(--neon-blue);
             object-fit: cover;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
             transition: transform 0.3s ease;
         }
 
         .logo-img-header:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .header-actions {
@@ -100,14 +115,16 @@
         .btn-cta {
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
             color: #fff;
-            padding: 10px 22px;
+            padding: 12px 26px;
             border-radius: 30px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.95rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: inline-block;
             cursor: pointer;
+            border: none;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
         }
 
         .btn-discord {
@@ -126,7 +143,7 @@
 
         .btn-cta:hover, .btn-discord:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
         }
 
         .btn-discord:hover {
@@ -134,66 +151,87 @@
         }
 
         .hero {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 90vh;
-            padding: 160px 8% 60px;
+            min-height: 100vh;
+            padding: 140px 8% 60px;
             text-align: center;
         }
 
-        .hero-content {
-            max-width: 850px;
+        /* CONTAINER TRANSLÚCIDO (GLASSMORPHISM) - AGORA DÁ PARA VER O FUNDO */
+        .hero-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(4, 8, 16, 0.55);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 880px;
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
         }
 
         .hero-highlight {
             display: inline-block;
             color: var(--neon-blue);
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 2px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border: 1px solid var(--border-color);
-            padding: 6px 18px;
-            border-radius: 20px;
-            background: rgba(0, 240, 255, 0.05);
+            padding: 8px 22px;
+            border-radius: 30px;
+            background: rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
         }
 
         .hero-title {
-            font-size: 3.2rem;
-            line-height: 1.25;
+            font-size: 3.1rem;
+            line-height: 1.2;
             margin-bottom: 20px;
-            font-weight: 800;
+            font-weight: 900;
             text-transform: uppercase;
+            letter-spacing: -0.5px;
         }
 
         .hero-title span {
             color: var(--neon-blue);
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
         }
 
-        .hero-subtitle {
+        /* COPYWRITER DE ALTO IMPACTO */
+        .copy-main {
+            color: #ffffff;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .copy-sub {
             color: var(--text-muted);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 35px;
-            max-width: 700px;
+            max-width: 720px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .products-section {
             padding: 80px 8%;
-            background: var(--bg-secondary);
-            backdrop-filter: blur(10px);
+            background: rgba(2, 4, 8, 0.7);
+            backdrop-filter: blur(12px);
             border-top: 1px solid var(--border-color);
             text-align: center;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 40px;
+            font-weight: 800;
         }
 
         .products-grid {
@@ -205,40 +243,42 @@
         }
 
         .product-card {
-            background: rgba(4, 6, 10, 0.85);
-            padding: 30px;
-            border-radius: 12px;
+            background: rgba(8, 12, 22, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 35px 30px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
         }
 
         .product-icon {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--neon-blue);
             margin-bottom: 15px;
         }
 
         .product-card h3 {
             margin-bottom: 15px;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
         }
 
         .product-card p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
             margin-bottom: 25px;
         }
 
         .form-section {
-            background: rgba(4, 6, 10, 0.92);
+            background: rgba(2, 4, 8, 0.85);
             padding: 80px 8%;
             border-top: 1px solid var(--border-color);
         }
@@ -246,15 +286,17 @@
         .form-container {
             max-width: 480px;
             margin: 0 auto;
-            background: var(--bg-secondary);
-            backdrop-filter: blur(10px);
+            background: rgba(8, 12, 22, 0.8);
+            backdrop-filter: blur(12px);
             padding: 40px;
-            border-radius: 12px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
         }
 
         .form-group {
             margin-bottom: 20px;
+            text-align: left;
         }
 
         .form-group label {
@@ -267,7 +309,7 @@
         .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
-            background: var(--bg-primary);
+            background: rgba(2, 4, 8, 0.9);
             border: 1px solid var(--border-color);
             border-radius: 6px;
             color: #fff;
@@ -276,6 +318,7 @@
 
         .form-group input:focus, .form-group select:focus {
             border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
         }
 
         .website-field {
@@ -289,13 +332,15 @@
             color: #000;
             border: none;
             border-radius: 6px;
-            font-weight: 700;
+            font-weight: 800;
+            font-size: 1rem;
             cursor: pointer;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, box-shadow 0.3s ease;
         }
 
         .btn-submit:hover {
-            opacity: 0.9;
+            opacity: 0.95;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
         }
 
         #formStatus {
@@ -311,7 +356,30 @@
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 0.85rem;
-            background: rgba(4, 6, 10, 0.95);
+            background: rgba(2, 4, 8, 0.95);
+        }
+
+        /* ANIMAÇÃO DA SARDINHA AO CLICAR */
+        .sardine-click {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1.8rem;
+            z-index: 9999;
+            animation: jumpSardine 0.8s ease-out forwards;
+        }
+
+        @keyframes jumpSardine {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+            }
+            50% {
+                transform: translate(-50%, -120px) scale(1.2) rotate(-25deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -60px) scale(0.8) rotate(20deg);
+            }
         }
 
         @media (max-width: 768px) {
@@ -319,24 +387,27 @@
                 padding: 15px 5%;
             }
 
-            .hero {
-                padding-top: 140px;
+            .hero-card {
+                padding: 30px 20px;
             }
 
             .hero-title {
-                font-size: 2.2rem;
+                font-size: 2.1rem;
+            }
+
+            .copy-main {
+                font-size: 1.15rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Fundo Integrado: Logo Centralizada + Tubarão Real no Plano de Fundo -->
-    <div class="bg-watermark"></div>
+    <!-- Fundo de Oceano Profundo com Tubarão Real Visível -->
+    <div class="bg-ocean"></div>
 
     <header>
         <a href="#" class="logo-container">
-            <!-- Apenas a imagem do Logo na barra superior -->
             <img src="mr trades.jpg" alt="MR TRADERS Logo" class="logo-img-header">
         </a>
         <div class="header-actions">
@@ -348,10 +419,16 @@
     </header>
 
     <section class="hero">
-        <div class="hero-content">
+        <!-- Logo Incorporado ao Fundo -->
+        <img src="mr trades.jpg" alt="MR TRADERS Logo Fundo" class="bg-logo-watermark">
+
+        <div class="hero-card">
             <span class="hero-highlight">DISCIPLINA &bull; FOCO &bull; RESULTADO</span>
             <h1 class="hero-title">TENHA <span>CLAREZA</span> NAS SUAS OPERAÇÕES</h1>
-            <p class="hero-subtitle">Conecte-se a ferramentas operacionais multimercado e acesse nossa infraestrutura completa para o seu desenvolvimento no mercado financeiro.</p>
+            
+            <p class="copy-main">A SIMPLICIDADE QUE GERA RESULTADO.</p>
+            <p class="copy-sub">Opere no mercado financeiro sem abrir mão da sua vida. Nós analisamos os gráficos com precisão cirúrgica para você executar e alcançar sua liberdade financeira.</p>
+            
             <a href="#cadastro" onclick="selecionarOrigem('Geral')" class="btn-cta">Cadastre-se para saber mais</a>
         </div>
     </section>
@@ -363,7 +440,7 @@
                 <div>
                     <i class="fa-solid fa-book-open product-icon"></i>
                     <h3>Ebook Exclusivo</h3>
-                    <p>Guia prático e fundamentado com estratégias operacionais e gerenciamento para atuar no mercado financeiro.</p>
+                    <p>O mapa prático da simplicidade operatória. Estratégias objetivas sem enrolação para você aplicar hoje.</p>
                 </div>
                 <a href="#cadastro" onclick="selecionarOrigem('Ebook Exclusivo')" class="btn-cta">Entre na fila de espera</a>
             </div>
@@ -372,7 +449,7 @@
                 <div>
                     <i class="fa-solid fa-user-tie product-icon"></i>
                     <h3>Mentoria Individual</h3>
-                    <p>Acompanhamento personalizado focado no desenvolvimento de estratégias técnicas e automação de operações.</p>
+                    <p>Acompanhamento lado a lado. Analisamos seu operacional e te guiamos para a consistência real no mercado.</p>
                 </div>
                 <a href="#cadastro" onclick="selecionarOrigem('Mentoria Individual')" class="btn-cta">Entre na fila de espera</a>
             </div>
@@ -382,7 +459,7 @@
     <section class="form-section" id="cadastro">
         <div class="form-container">
             <h2 style="margin-bottom: 10px; text-align: center;">Entre na Fila de Espera</h2>
-            <p style="color: var(--text-muted); text-align: center; margin-bottom: 30px; font-size: 0.9rem;">Cadastre-se para receber atualizações em primeira mão.</p>
+            <p style="color: var(--text-muted); text-align: center; margin-bottom: 30px; font-size: 0.9rem;">Garanta seu acesso antecipado às estratégias.</p>
             
             <form id="leadForm" action="https://formspree.io/f/meajjwea" method="POST">
                 
@@ -399,7 +476,6 @@
                     <input type="email" id="email" name="email" maxlength="80" required placeholder="seuemail@dominio.com">
                 </div>
 
-                <!-- Campo para identificar o produto no e-mail do Formspree -->
                 <div class="form-group">
                     <label for="produto">Interesse Principal</label>
                     <select id="produto" name="produto" required>
@@ -419,7 +495,27 @@
         <p>&copy; MR TRADERS. Todos os direitos reservados.</p>
     </footer>
 
+    <!-- SCRIPT DE INTERAÇÃO COM O CLIQUE (SARDINHA PULANDO) -->
     <script>
+        document.addEventListener('click', function(e) {
+            // Evita criar a sardinha se o clique for diretamente num botão ou link
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+                return;
+            }
+
+            const sardine = document.createElement('div');
+            sardine.className = 'sardine-click';
+            sardine.innerHTML = '🐟'; // Ícone de sardinha
+            sardine.style.left = e.clientX + 'px';
+            sardine.style.top = e.clientY + 'px';
+
+            document.body.appendChild(sardine);
+
+            setTimeout(() => {
+                sardine.remove();
+            }, 800);
+        });
+
         function selecionarOrigem(origem) {
             var select = document.getElementById('produto');
             if (select) {
