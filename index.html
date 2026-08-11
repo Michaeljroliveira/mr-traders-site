@@ -17,7 +17,7 @@
     <style>
         :root {
             --bg-primary: #020408;
-            --bg-card: rgba(8, 12, 22, 0.65);
+            --bg-card: rgba(8, 12, 22, 0.45);
             --neon-blue: #00f0ff;
             --neon-pink: #ff2a5f;
             --discord-color: #5865F2;
@@ -43,7 +43,7 @@
             min-height: 100vh;
         }
 
-        /* FUNDO DE TUBARÃO REAL EM ALTA VISIBILIDADE */
+        /* FUNDO DE TUBARÃO REAL TOTALMENTE VISÍVEL */
         .bg-ocean {
             position: fixed;
             top: 0;
@@ -51,7 +51,7 @@
             width: 100vw;
             height: 100vh;
             background: 
-                linear-gradient(180deg, rgba(2, 4, 8, 0.4) 0%, rgba(2, 4, 8, 0.75) 100%),
+                linear-gradient(180deg, rgba(2, 4, 8, 0.2) 0%, rgba(2, 4, 8, 0.55) 100%),
                 url('https://images.unsplash.com/photo-1560275619-4662e36fa65c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             z-index: -2;
             pointer-events: none;
@@ -64,20 +64,20 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
-            max-width: 650px;
+            max-width: 700px;
             height: auto;
-            opacity: 0.25;
+            opacity: 0.35;
             z-index: 1;
             pointer-events: none;
-            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.6));
+            filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.7));
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 8%;
-            background: rgba(2, 4, 8, 0.75);
+            padding: 12px 8%;
+            background: rgba(2, 4, 8, 0.85);
             backdrop-filter: blur(12px);
             position: fixed;
             width: 100%;
@@ -89,21 +89,32 @@
         .logo-container {
             display: flex;
             align-items: center;
+            gap: 15px;
             text-decoration: none;
         }
 
+        /* LOGO AUMENTADO E NÍTIDO NO CANTO SUPERIOR ESQUERDO */
         .logo-img-header {
-            width: 48px;
-            height: 48px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: 2px solid var(--neon-blue);
             object-fit: cover;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 18px rgba(0, 240, 255, 0.7);
+            image-rendering: -webkit-optimize-contrast;
             transition: transform 0.3s ease;
         }
 
-        .logo-img-header:hover {
-            transform: scale(1.08);
+        .logo-text-header {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .logo-text-header span {
+            color: var(--neon-blue);
         }
 
         .header-actions {
@@ -146,10 +157,6 @@
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
         }
 
-        .btn-discord:hover {
-            background-color: #4752c4;
-        }
-
         .hero {
             position: relative;
             display: flex;
@@ -157,21 +164,21 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 140px 8% 60px;
+            padding: 150px 8% 60px;
             text-align: center;
         }
 
-        /* CONTAINER TRANSLÚCIDO (GLASSMORPHISM) - AGORA DÁ PARA VER O FUNDO */
+        /* FUNDO ULTRATRANSPARENTE PARA MOSTRAR O TUBARÃO COM PERFEIÇÃO */
         .hero-card {
             position: relative;
             z-index: 2;
-            background: rgba(4, 8, 16, 0.55);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
+            background: rgba(2, 4, 8, 0.20);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0, 240, 255, 0.3);
             border-radius: 20px;
-            padding: 50px 40px;
+            padding: 45px 35px;
             max-width: 880px;
-            box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
         }
 
         .hero-highlight {
@@ -185,12 +192,12 @@
             border: 1px solid var(--border-color);
             padding: 8px 22px;
             border-radius: 30px;
-            background: rgba(0, 240, 255, 0.1);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            background: rgba(0, 240, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
         }
 
         .hero-title {
-            font-size: 3.1rem;
+            font-size: 3.2rem;
             line-height: 1.2;
             margin-bottom: 20px;
             font-weight: 900;
@@ -200,30 +207,32 @@
 
         .hero-title span {
             color: var(--neon-blue);
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
         }
 
-        /* COPYWRITER DE ALTO IMPACTO */
         .copy-main {
             color: #ffffff;
-            font-size: 1.35rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 800;
             margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
 
         .copy-sub {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            color: #e0e6f5;
+            font-size: 1.15rem;
+            font-weight: 500;
             margin-bottom: 35px;
             max-width: 720px;
             margin-left: auto;
             margin-right: auto;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
         }
 
         .products-section {
             padding: 80px 8%;
-            background: rgba(2, 4, 8, 0.7);
-            backdrop-filter: blur(12px);
+            background: rgba(2, 4, 8, 0.65);
+            backdrop-filter: blur(8px);
             border-top: 1px solid var(--border-color);
             text-align: center;
         }
@@ -243,7 +252,7 @@
         }
 
         .product-card {
-            background: rgba(8, 12, 22, 0.7);
+            background: rgba(8, 12, 22, 0.65);
             backdrop-filter: blur(8px);
             padding: 35px 30px;
             border-radius: 16px;
@@ -286,7 +295,7 @@
         .form-container {
             max-width: 480px;
             margin: 0 auto;
-            background: rgba(8, 12, 22, 0.8);
+            background: rgba(8, 12, 22, 0.85);
             backdrop-filter: blur(12px);
             padding: 40px;
             border-radius: 16px;
@@ -359,32 +368,43 @@
             background: rgba(2, 4, 8, 0.95);
         }
 
-        /* ANIMAÇÃO DA SARDINHA AO CLICAR */
-        .sardine-click {
+        /* ANIMAÇÃO DA SARDINHA REAL EM PNG */
+        .sardine-real-click {
             position: fixed;
             pointer-events: none;
-            font-size: 1.8rem;
+            width: 85px;
+            height: auto;
             z-index: 9999;
-            animation: jumpSardine 0.8s ease-out forwards;
+            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6));
+            animation: jumpRealSardine 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        @keyframes jumpSardine {
+        @keyframes jumpRealSardine {
             0% {
                 opacity: 1;
-                transform: translate(-50%, -50%) scale(0.6) rotate(0deg);
+                transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
             }
             50% {
-                transform: translate(-50%, -120px) scale(1.2) rotate(-25deg);
+                transform: translate(-50%, -140px) scale(1.1) rotate(-30deg);
             }
             100% {
                 opacity: 0;
-                transform: translate(-50%, -60px) scale(0.8) rotate(20deg);
+                transform: translate(-50%, -40px) scale(0.7) rotate(25deg);
             }
         }
 
         @media (max-width: 768px) {
             header {
-                padding: 15px 5%;
+                padding: 12px 5%;
+            }
+
+            .logo-img-header {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo-text-header {
+                font-size: 1.2rem;
             }
 
             .hero-card {
@@ -409,6 +429,7 @@
     <header>
         <a href="#" class="logo-container">
             <img src="mr trades.jpg" alt="MR TRADERS Logo" class="logo-img-header">
+            <span class="logo-text-header">MR <span>TRADERS</span></span>
         </a>
         <div class="header-actions">
             <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="btn-discord">
@@ -495,17 +516,18 @@
         <p>&copy; MR TRADERS. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- SCRIPT DE INTERAÇÃO COM O CLIQUE (SARDINHA PULANDO) -->
+    <!-- SCRIPT DE INTERAÇÃO COM O CLIQUE (SARDINHA REAL PNG) -->
     <script>
         document.addEventListener('click', function(e) {
-            // Evita criar a sardinha se o clique for diretamente num botão ou link
             if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
                 return;
             }
 
-            const sardine = document.createElement('div');
-            sardine.className = 'sardine-click';
-            sardine.innerHTML = '🐟'; // Ícone de sardinha
+            const sardine = document.createElement('img');
+            sardine.className = 'sardine-real-click';
+            // Imagem de Sardinha Real em PNG Transparente
+            sardine.src = 'https://images.vexels.com/media/users/3/216892/isolated/preview/fa7b12d14bc351a7008cfbf65f422eb7-desenho-de-peixe-sardinha.png';
+            sardine.alt = 'Sardinha';
             sardine.style.left = e.clientX + 'px';
             sardine.style.top = e.clientY + 'px';
 
@@ -513,7 +535,7 @@
 
             setTimeout(() => {
                 sardine.remove();
-            }, 800);
+            }, 850);
         });
 
         function selecionarOrigem(origem) {
