@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mikca Markets | Soluções em Trading e Tecnologia</title>
+    <title>MR TRADERS | Soluções em Trading e Tecnologia</title>
     
     <!-- Content Security Policy (CSP) Otimizada -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:;">
@@ -44,7 +44,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 8%;
+            padding: 15px 8%;
             background: rgba(10, 11, 16, 0.9);
             backdrop-filter: blur(10px);
             position: fixed;
@@ -54,15 +54,30 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--neon-blue);
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+
+        .logo-text {
             font-size: 1.4rem;
             font-weight: 700;
             color: var(--text-main);
-            text-decoration: none;
             letter-spacing: 1px;
         }
 
-        .logo span {
+        .logo-text span {
             color: var(--neon-blue);
         }
 
@@ -299,7 +314,10 @@
 <body>
 
     <header>
-        <a href="#" class="logo">MIKCA <span>MARKETS</span></a>
+        <a href="#" class="logo-container">
+            <img src="mr trades.jpg" alt="MR TRADERS Logo" class="logo-img">
+            <span class="logo-text">MR <span>TRADERS</span></span>
+        </a>
         <div class="header-actions">
             <!-- Substitua o link '#' abaixo pela URL convite da sua comunidade Discord -->
             <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="btn-discord">
@@ -316,7 +334,7 @@
             <a href="#cadastro" class="btn-cta">Cadastre-se para saber mais</a>
         </div>
         <div class="hero-photo-container">
-            <img src="mr trades.jpg" alt="Foto Oficial - Mikca Markets" class="hero-photo">
+            <img src="mr trades.jpg" alt="Foto Oficial - MR TRADERS" class="hero-photo">
         </div>
     </section>
 
@@ -369,7 +387,7 @@
     </section>
 
     <footer>
-        <p>&copy; Mikca Markets. Todos os direitos reservados.</p>
+        <p>&copy; MR TRADERS. Todos os direitos reservados.</p>
     </footer>
 
     <script>
