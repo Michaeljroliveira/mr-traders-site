@@ -73,25 +73,30 @@
             display: flex;
             align-items: center;
             text-decoration: none;
+            position: relative;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+            background: #000;
+            overflow: hidden;
+            justify-content: center;
         }
 
-        /* LOGO OFICIAL RETANGULAR ULTRA NÍTIDA */
+        /* TÉCNICA DE TRANSPARÊNCIA E FOCO CENTRALIZADO */
         .logo-img-header {
-            height: 65px;
-            width: auto;
-            max-width: 220px;
+            width: 150%;
+            height: 150%;
             object-fit: contain;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            mix-blend-mode: screen; /* Remove todo o fundo preto deixando transparente */
+            filter: contrast(130%) brightness(110%); /* Garante nitidez máxima do branco */
             image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        .logo-img-header:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+        .logo-container:hover .logo-img-header {
+            transform: scale(1.08);
         }
 
         .header-actions {
@@ -372,9 +377,9 @@
                 padding: 10px 4%;
             }
 
-            .logo-img-header {
-                height: 50px;
-                max-width: 160px;
+            .logo-container {
+                width: 60px;
+                height: 60px;
             }
 
             .hero-card {
@@ -398,7 +403,7 @@
 
     <header>
         <a href="#" class="logo-container">
-            <img src="mr trades_2.png" alt="MR TRADERS" class="logo-img-header">
+            <img src="mr trades_2.jpg" alt="MR TRADERS" class="logo-img-header">
         </a>
         <div class="header-actions">
             <button onclick="mostrarAvisoDiscord()" class="btn-discord">
