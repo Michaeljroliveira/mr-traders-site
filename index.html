@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MR TRADERS | Soluções em Trading e Tecnologia</title>
+    <title>MR TRADERS : DOMINE O MERCADO COM DISCIPLINA E FOCO</title>
     
     <!-- Content Security Policy (CSP) Otimizada -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://formspree.io;">
 
     <!-- Fontes e Ícones -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -281,6 +281,13 @@
             opacity: 0.9;
         }
 
+        #formStatus {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            display: none;
+        }
+
         footer {
             text-align: center;
             padding: 30px 8%;
@@ -319,7 +326,6 @@
             <span class="logo-text">MR <span>TRADERS</span></span>
         </a>
         <div class="header-actions">
-            <!-- Substitua o link '#' abaixo pela URL convite da sua comunidade Discord -->
             <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="btn-discord">
                 <i class="fa-brands fa-discord"></i> Discord
             </a>
@@ -366,9 +372,10 @@
             <h2 style="margin-bottom: 10px; text-align: center;">Entre na Fila de Espera</h2>
             <p style="color: var(--text-muted); text-align: center; margin-bottom: 30px; font-size: 0.9rem;">Cadastre-se para receber atualizações em primeira mão.</p>
             
-            <form id="leadForm" action="https://formspree.io/f/seu-id-aqui" method="POST">
+            <!-- ENDPOINT COM SEU ID ATUALIZADO: meajjwea -->
+            <form id="leadForm" action="https://formspree.io/f/meajjwea" method="POST">
                 
-                <!-- Proteção Honeypot contra robôs de Spam -->
+                <!-- Proteção Honeypot contra robôs -->
                 <input type="text" name="b_website" class="website-field" tabindex="-1" autocomplete="off">
 
                 <div class="form-group">
@@ -381,7 +388,8 @@
                     <input type="email" id="email" name="email" maxlength="80" required placeholder="seuemail@dominio.com">
                 </div>
 
-                <button type="submit" class="btn-submit">Cadastre-se para saber mais</button>
+                <button type="submit" class="btn-submit" id="submitBtn">Cadastre-se para saber mais</button>
+                <div id="formStatus"></div>
             </form>
         </div>
     </section>
@@ -391,18 +399,62 @@
     </footer>
 
     <script>
-        document.getElementById('leadForm').addEventListener('submit', function(e) {
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            var form = e.target;
+            var status = document.getElementById('formStatus');
+            var btn = document.getElementById('submitBtn');
+
+            // Proteção Honeypot
             var honeypot = document.querySelector('input[name="b_website"]').value;
             if (honeypot !== "") {
-                e.preventDefault();
                 return false;
             }
 
+            // Sanitização de entradas
             var nameInput = document.getElementById('name');
             var emailInput = document.getElementById('email');
-
             nameInput.value = nameInput.value.trim().replace(/[<>]/g, '');
             emailInput.value = emailInput.value.trim().replace(/[<>]/g, '');
+
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
+
+            var data = new FormData(form);
+
+            try {
+                var response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    status.style.display = "block";
+                    status.style.color = "#00f0ff";
+                    status.innerText = "Cadastro realizado com sucesso! Em breve entraremos em contato.";
+                    form.reset();
+                } else {
+                    var result = await response.json();
+                    status.style.display = "block";
+                    status.style.color = "#ff2a5f";
+                    if (Object.hasOwn(result, 'errors')) {
+                        status.innerText = result["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        status.innerText = "Ocorreu um erro ao enviar seu cadastro. Tente novamente.";
+                    }
+                }
+            } catch (error) {
+                status.style.display = "block";
+                status.style.color = "#ff2a5f";
+                status.innerText = "Erro de conexão ao enviar o formulário.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Cadastre-se para saber mais";
+            }
         });
     </script>
 </body>
