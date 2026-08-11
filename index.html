@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MR TRADERS : DOMINE O MERCADO COM DISCIPLINA E FOCO</title>
     
-    <!-- Content Security Policy (CSP) Otimizada -->
+    <!-- Content Security Policy Otimizada -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://formspree.io;">
 
     <!-- Fontes e Ícones -->
@@ -16,14 +16,14 @@
 
     <style>
         :root {
-            --bg-primary: #0a0b10;
-            --bg-secondary: #121520;
+            --bg-primary: #06080e;
+            --bg-secondary: rgba(18, 21, 32, 0.75);
             --neon-blue: #00f0ff;
             --neon-pink: #ff2a5f;
             --discord-color: #5865F2;
             --text-main: #ffffff;
             --text-muted: #a0a5b5;
-            --border-color: rgba(0, 240, 255, 0.2);
+            --border-color: rgba(0, 240, 255, 0.25);
         }
 
         * {
@@ -38,6 +38,74 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fundo Integrado com a Foto Principal e Efeito Marca d'Água */
+        .bg-watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: radial-gradient(circle at center, rgba(6, 8, 14, 0.65) 0%, rgba(6, 8, 14, 0.95) 100%), url('mr trades.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.18;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Container de Animação dos Tubarões */
+        .shark-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shark {
+            position: absolute;
+            fill: rgba(0, 240, 255, 0.08);
+            filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.15));
+            animation: swim linear infinite;
+        }
+
+        .shark-1 {
+            width: 220px;
+            top: 25%;
+            left: -250px;
+            animation-duration: 28s;
+            animation-delay: 0s;
+        }
+
+        .shark-2 {
+            width: 150px;
+            top: 65%;
+            left: -200px;
+            animation-duration: 38s;
+            animation-delay: 12s;
+            opacity: 0.6;
+        }
+
+        @keyframes swim {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateX(calc(100vw + 300px)) translateY(-40px) rotate(3deg);
+            }
+            51% {
+                transform: translateX(calc(100vw + 300px)) translateY(-40px) rotateY(180deg);
+            }
+            100% {
+                transform: translateX(-300px) translateY(0) rotateY(180deg);
+            }
         }
 
         header {
@@ -45,8 +113,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 8%;
-            background: rgba(10, 11, 16, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(6, 8, 14, 0.85);
+            backdrop-filter: blur(12px);
             position: fixed;
             width: 100%;
             top: 0;
@@ -62,12 +130,12 @@
         }
 
         .logo-img {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             border: 1px solid var(--neon-blue);
             object-fit: cover;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
         }
 
         .logo-text {
@@ -90,13 +158,14 @@
         .btn-cta {
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
             color: #fff;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: inline-block;
+            cursor: pointer;
         }
 
         .btn-discord {
@@ -115,6 +184,7 @@
 
         .btn-cta:hover, .btn-discord:hover {
             transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
 
         .btn-discord:hover {
@@ -161,7 +231,7 @@
 
         .hero-photo {
             width: 100%;
-            max-width: 380px;
+            max-width: 420px;
             height: auto;
             border-radius: 16px;
             border: 2px solid var(--neon-blue);
@@ -172,6 +242,7 @@
         .products-section {
             padding: 80px 8%;
             background: var(--bg-secondary);
+            backdrop-filter: blur(8px);
             border-top: 1px solid var(--border-color);
             text-align: center;
         }
@@ -190,18 +261,19 @@
         }
 
         .product-card {
-            background: var(--bg-primary);
+            background: rgba(10, 11, 16, 0.85);
             padding: 30px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
+            border-color: var(--neon-blue);
         }
 
         .product-icon {
@@ -222,7 +294,7 @@
         }
 
         .form-section {
-            background: var(--bg-primary);
+            background: rgba(6, 8, 14, 0.9);
             padding: 80px 8%;
             border-top: 1px solid var(--border-color);
         }
@@ -231,6 +303,7 @@
             max-width: 480px;
             margin: 0 auto;
             background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
@@ -247,7 +320,7 @@
             font-size: 0.9rem;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
             background: var(--bg-primary);
@@ -257,7 +330,7 @@
             outline: none;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: var(--neon-blue);
         }
 
@@ -294,6 +367,7 @@
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 0.85rem;
+            background: rgba(6, 8, 14, 0.95);
         }
 
         @media (max-width: 768px) {
@@ -320,6 +394,19 @@
 </head>
 <body>
 
+    <!-- Fundo de Marca d'Água do Logo -->
+    <div class="bg-watermark"></div>
+
+    <!-- Animação do Tubarão de Fundo -->
+    <div class="shark-container">
+        <svg class="shark shark-1" viewBox="0 0 512 512">
+            <path d="M500.5,236.4C448.6,180.7,358.3,144,272,144c-38.4,0-76,7.5-110.1,21.8C127.3,124.9,78.2,96,24,96c-13.3,0-24,10.7-24,24c0,8.4,4.4,16.2,11.6,20.5c38.7,23.2,68.9,58.3,86.7,100.1C38.2,254.2,0,283.4,0,320c0,44.2,57.3,80,128,80c29.7,0,57.1-6.3,79.2-17.1c38,18.8,81.3,29.1,126.8,29.1c73.3,0,138.8-26.6,172.5-67.6c6.2-7.5,6.2-18.3,0-25.8C503.2,314.9,512,274.6,500.5,236.4z"/>
+        </svg>
+        <svg class="shark shark-2" viewBox="0 0 512 512">
+            <path d="M500.5,236.4C448.6,180.7,358.3,144,272,144c-38.4,0-76,7.5-110.1,21.8C127.3,124.9,78.2,96,24,96c-13.3,0-24,10.7-24,24c0,8.4,4.4,16.2,11.6,20.5c38.7,23.2,68.9,58.3,86.7,100.1C38.2,254.2,0,283.4,0,320c0,44.2,57.3,80,128,80c29.7,0,57.1-6.3,79.2-17.1c38,18.8,81.3,29.1,126.8,29.1c73.3,0,138.8-26.6,172.5-67.6c6.2-7.5,6.2-18.3,0-25.8C503.2,314.9,512,274.6,500.5,236.4z"/>
+        </svg>
+    </div>
+
     <header>
         <a href="#" class="logo-container">
             <img src="mr trades.jpg" alt="MR TRADERS Logo" class="logo-img">
@@ -329,15 +416,15 @@
             <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="btn-discord">
                 <i class="fa-brands fa-discord"></i> Discord
             </a>
-            <a href="#cadastro" class="btn-cta">Fila de Espera</a>
+            <a href="#cadastro" onclick="selecionarOrigem('Geral')" class="btn-cta">Fila de Espera</a>
         </div>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">Domine o Mercado <span> Com Disciplina e <span> FOCO </span></h1>
-            <p class="hero-subtitle">DISCIPLINA<span> FOCO <span> RESULTADO .</p>
-            <a href="#cadastro" class="btn-cta">Cadastre-se para saber mais</a>
+            <h1 class="hero-title">Domine o Mercado <span>Com Disciplina e FOCO</span></h1>
+            <p class="hero-subtitle">DISCIPLINA FOCO RESULTADO . Conecte-se a ferramentas operacionais multimercado e acesse nossa infraestrutura de ensino e automação de operações.</p>
+            <a href="#cadastro" onclick="selecionarOrigem('Geral')" class="btn-cta">Cadastre-se para saber mais</a>
         </div>
         <div class="hero-photo-container">
             <img src="mr trades.jpg" alt="Foto Oficial - MR TRADERS" class="hero-photo">
@@ -353,7 +440,7 @@
                     <h3>Ebook Exclusivo</h3>
                     <p>Guia prático e fundamentado com estratégias operacionais e gerenciamento para atuar no mercado financeiro.</p>
                 </div>
-                <a href="#cadastro" class="btn-cta">Entre na fila de espera</a>
+                <a href="#cadastro" onclick="selecionarOrigem('Ebook Exclusivo')" class="btn-cta">Entre na fila de espera</a>
             </div>
 
             <div class="product-card">
@@ -362,7 +449,7 @@
                     <h3>Mentoria Individual</h3>
                     <p>Acompanhamento personalizado focado no desenvolvimento de estratégias técnicas e automação de operações.</p>
                 </div>
-                <a href="#cadastro" class="btn-cta">Entre na fila de espera</a>
+                <a href="#cadastro" onclick="selecionarOrigem('Mentoria Individual')" class="btn-cta">Entre na fila de espera</a>
             </div>
         </div>
     </section>
@@ -372,10 +459,9 @@
             <h2 style="margin-bottom: 10px; text-align: center;">Entre na Fila de Espera</h2>
             <p style="color: var(--text-muted); text-align: center; margin-bottom: 30px; font-size: 0.9rem;">Cadastre-se para receber atualizações em primeira mão.</p>
             
-            <!-- ENDPOINT COM SEU ID ATUALIZADO: meajjwea -->
             <form id="leadForm" action="https://formspree.io/f/meajjwea" method="POST">
                 
-                <!-- Proteção Honeypot contra robôs -->
+                <!-- Proteção Honeypot -->
                 <input type="text" name="b_website" class="website-field" tabindex="-1" autocomplete="off">
 
                 <div class="form-group">
@@ -386,6 +472,16 @@
                 <div class="form-group">
                     <label for="email">E-mail Comercial</label>
                     <input type="email" id="email" name="email" maxlength="80" required placeholder="seuemail@dominio.com">
+                </div>
+
+                <!-- Campo para identificar o produto no e-mail do Formspree -->
+                <div class="form-group">
+                    <label for="produto">Interesse Principal</label>
+                    <select id="produto" name="produto" required>
+                        <option value="Geral">Interesse Geral / Fila de Espera</option>
+                        <option value="Ebook Exclusivo">Ebook Exclusivo</option>
+                        <option value="Mentoria Individual">Mentoria Individual</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn-submit" id="submitBtn">Cadastre-se para saber mais</button>
@@ -399,6 +495,14 @@
     </footer>
 
     <script>
+        // Função para selecionar a origem automaticamente ao clicar no card
+        function selecionarOrigem(origem) {
+            var select = document.getElementById('produto');
+            if (select) {
+                select.value = origem;
+            }
+        }
+
         document.getElementById('leadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
