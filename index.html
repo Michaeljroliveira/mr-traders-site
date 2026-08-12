@@ -59,8 +59,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 8%;
-            background: rgba(2, 4, 8, 0.9);
+            padding: 12px 6%;
+            background: rgba(2, 4, 8, 0.95);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
@@ -69,35 +69,32 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* LOGO RETANGULAR - NÃO CORTA AS LETRAS E MANTÉM NITIDEZ */
+        /* CONTAINER E IMAGEM PNG EM TAMANHO REAL */
         .logo-container {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            width: 170px;
-            height: 55px;
-            border-radius: 8px;
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
             background-color: #000000;
+            border: 1px solid var(--neon-blue);
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+            padding: 6px 12px;
             overflow: hidden;
-            position: relative;
         }
 
         .logo-img-header {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 4px;
+            width: auto;
+            height: auto;
+            max-height: 70px;
+            display: block;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
-            filter: contrast(120%) brightness(105%);
             transition: transform 0.3s ease;
         }
 
         .logo-container:hover .logo-img-header {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .header-actions {
@@ -153,7 +150,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 150px 8% 60px;
+            padding: 160px 8% 60px;
             text-align: center;
         }
 
@@ -378,9 +375,8 @@
                 padding: 10px 4%;
             }
 
-            .logo-container {
-                width: 140px;
-                height: 48px;
+            .logo-img-header {
+                max-height: 50px;
             }
 
             .hero-card {
