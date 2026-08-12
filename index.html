@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MR TRADERS : SIMPLICIDADE QUE GERA RESULTADO</title>
     
-    <!-- Content Security Policy Otimizada com lib de Telefone -->
+    <!-- Content Security Policy Otimizada -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://formspree.io;">
 
     <!-- Fontes e Ícones -->
@@ -74,7 +74,6 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* CONTAINER E IMAGEM PNG EM TAMANHO REAL */
         .logo-container {
             display: inline-flex;
             align-items: center;
@@ -333,7 +332,6 @@
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
         }
 
-        /* Ajustes para o Input de Telefone Internacional */
         .iti {
             width: 100%;
         }
@@ -430,11 +428,9 @@
             <img src="mr trades_2.png" alt="MR TRADERS" class="logo-img-header">
         </a>
         <div class="header-actions">
-            <!-- Botão do Telegram -->
             <a href="https://t.me/+WXyl00M4vjExMThh" target="_blank" rel="noopener noreferrer" class="btn-social btn-telegram">
                 <i class="fa-brands fa-telegram"></i> Telegram
             </a>
-            <!-- Botão do Discord -->
             <button onclick="mostrarAvisoDiscord()" class="btn-social btn-discord">
                 <i class="fa-brands fa-discord"></i> Discord
             </button>
@@ -458,7 +454,6 @@
         <h2 class="section-title">Soluções em Destaque</h2>
         <div class="products-grid">
             
-            <!-- CARD EBOOK -->
             <div class="product-card">
                 <div>
                     <i class="fa-solid fa-book-open product-icon"></i>
@@ -468,7 +463,6 @@
                 <button onclick="redirecionarParaFormulario('Ebook Exclusivo')" class="btn-cta">Quero o Ebook</button>
             </div>
 
-            <!-- CARD VÍDEO AULA GRAVADA -->
             <div class="product-card">
                 <div>
                     <i class="fa-solid fa-video product-icon"></i>
@@ -478,7 +472,6 @@
                 <button onclick="redirecionarParaFormulario('Vídeo Aula Gravada')" class="btn-cta">Quero a Vídeo Aula</button>
             </div>
 
-            <!-- CARD MENTORIA INDIVIDUAL -->
             <div class="product-card">
                 <div>
                     <i class="fa-solid fa-user-tie product-icon"></i>
@@ -497,7 +490,6 @@
             <p style="color: var(--text-muted); text-align: center; margin-bottom: 30px; font-size: 0.9rem;">Preencha seus dados para receber o contato da nossa equipe.</p>
             
             <form id="leadForm" action="https://formspree.io/f/meajjwea" method="POST">
-                <!-- Honeypot contra robôs -->
                 <input type="text" name="b_website" class="website-field" tabindex="-1" autocomplete="off">
 
                 <div class="form-group">
@@ -518,7 +510,7 @@
 
                 <div class="form-group">
                     <label for="produto">Produto de Interesse</label>
-                    <select id="produto" name="origem_lead" required>
+                    <select id="produto" name="origem_lead" required onchange="limparStatus()">
                         <option value="Interesse Geral / Fila de Espera">Interesse Geral / Fila de Espera</option>
                         <option value="Ebook Exclusivo">Ebook Exclusivo</option>
                         <option value="Vídeo Aula Gravada">Vídeo Aula Gravada</option>
@@ -539,10 +531,9 @@
     </footer>
 
     <script>
-        // Inicialização do campo de Telefone Internacional com Bandeiras
         var phoneInput = document.querySelector("#whatsapp");
         var iti = window.intlTelInput(phoneInput, {
-            initialCountry: "pt", // Portugal como padrão (ajuste para "br" se preferir)
+            initialCountry: "pt",
             preferredCountries: ["pt", "br", "es", "us"],
             separateDialCode: true,
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
@@ -556,8 +547,18 @@
             }, 3500);
         }
 
-        // Função que direciona o clique do produto para o formulário ajustando a origem
+        // Limpa a mensagem de feedback do formulário
+        function limparStatus() {
+            var status = document.getElementById('formStatus');
+            if (status) {
+                status.style.display = "none";
+                status.innerText = "";
+            }
+        }
+
+        // Redireciona e limpa mensagens de feedback anteriores
         function redirecionarParaFormulario(produto) {
+            limparStatus();
             var select = document.getElementById('produto');
             if (select) {
                 select.value = produto;
@@ -568,7 +569,32 @@
             }
         }
 
-        // Validação e Envio do Formulário para Formspree
+        // Funções para gerenciar cadastros já realizados (evita duplicados pelo mesmo e-mail e produto)
+        function obterCadastrosRealizados() {
+            try {
+                var dados = localStorage.getItem('mr_traders_leads');
+                return dados ? JSON.parse(dados) : [];
+            } catch(e) {
+                return [];
+            }
+        }
+
+        function salvarCadastroRealizado(email, produto) {
+            try {
+                var cadastros = obterCadastrosRealizados();
+                cadastros.push({ email: email.toLowerCase(), produto: produto });
+                localStorage.setItem('mr_traders_leads', JSON.stringify(cadastros));
+            } catch(e) {}
+        }
+
+        function jaCadastrado(email, produto) {
+            var cadastros = obterCadastrosRealizados();
+            return cadastros.some(function(item) {
+                return item.email === email.toLowerCase() && item.produto === produto;
+            });
+        }
+
+        // Validação e Envio do Formulário
         document.getElementById('leadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -576,13 +602,24 @@
             var status = document.getElementById('formStatus');
             var btn = document.getElementById('submitBtn');
 
-            // Proteção Honeypot
+            // Honeypot
             var honeypot = document.querySelector('input[name="b_website"]').value;
             if (honeypot !== "") {
                 return false;
             }
 
-            // Validação de Telefone com a lib intlTelInput
+            var emailInput = document.getElementById('email').value.trim().toLowerCase();
+            var produtoSelecionado = document.getElementById('produto').value;
+
+            // Validação de Duplicidade de E-mail para o mesmo produto
+            if (jaCadastrado(emailInput, produtoSelecionado)) {
+                status.style.display = "block";
+                status.style.color = "#ff2a5f";
+                status.innerText = "Este e-mail já foi cadastrado anteriormente para esta opção!";
+                return false;
+            }
+
+            // Validação de Telefone
             if (!iti.isValidNumber()) {
                 status.style.display = "block";
                 status.style.color = "#ff2a5f";
@@ -590,14 +627,11 @@
                 return false;
             }
 
-            // Salva o número formatado com o DDI do país
             document.getElementById('whatsapp_completo').value = iti.getNumber();
 
-            // Sanitize de entradas de texto
+            // Sanitize
             var nameInput = document.getElementById('name');
-            var emailInput = document.getElementById('email');
             nameInput.value = nameInput.value.trim().replace(/[<>]/g, '');
-            emailInput.value = emailInput.value.trim().replace(/[<>]/g, '');
 
             btn.disabled = true;
             btn.innerText = "Enviando dados...";
@@ -614,6 +648,9 @@
                 });
 
                 if (response.ok) {
+                    // Grava no histórico local para impedir cadastros duplicados do mesmo produto
+                    salvarCadastroRealizado(emailInput, produtoSelecionado);
+
                     status.style.display = "block";
                     status.style.color = "#00f0ff";
                     status.innerText = "Cadastro realizado com sucesso! Nossa equipe entrará em contato.";
